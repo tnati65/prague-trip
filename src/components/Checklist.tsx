@@ -45,10 +45,65 @@ const GROUPS: ChecklistGroup[] = [
   },
   {
     id: "clothing",
-    title: "לבוש",
+    title: "ביגוד אישי",
     items: [
-      { id: "warm-clothes", label: "בגדים חמים לערב" },
-      { id: "festive-light", label: "בגדים חגיגיים קלים" },
+      {
+        id: "underwear-socks",
+        label: "הלבשה תחתונה וגרביים",
+        subtitle: "ל-10 ימים – או פחות אם עושים כביסה באמצע הטיול",
+      },
+      {
+        id: "shirts-tshirts",
+        label: "חולצות קצרות וארוכות",
+        subtitle:
+          "בספטמבר–אוקטובר הטמפרטורות נעות בין 5° ל-17° — בבוקר ובערב מומלץ להתלבש בשכבות (בצל)",
+      },
+      {
+        id: "fleece-sweatshirt",
+        label: "סווטשירט או פליז – שניים לפחות",
+        subtitle: "שכבת האמצע החשובה ביותר",
+      },
+      {
+        id: "warm-coat",
+        label: "מעיל חם",
+        subtitle: "למקומות הגבוהים והטבע – מעל 1,000 מ' קר ויורד גם גשם",
+      },
+      {
+        id: "rain-jacket",
+        label: "מעיל גשם או פונצ'ו",
+        subtitle: "קל משקל, שיהיה לכל אחד בתיק",
+      },
+      { id: "long-pants", label: "מכנסיים ארוכים" },
+      {
+        id: "sweatpants-pajamas",
+        label: "טרנינגים ופיג'מות",
+        subtitle: "ללילות הקרים (החימום בדירה/מלון)",
+      },
+      { id: "swimwear", label: "בגדי ים" },
+      {
+        id: "spare-outfit",
+        label: "בגדים לכל אחד",
+        subtitle:
+          "חולצות וגרביים בתיק, למקרה של התלכלכות באמצע הטיול",
+      },
+      { id: "warm-hat-scarf-gloves", label: "כובע חם, צעיף וכפפות" },
+      {
+        id: "thin-gloves-buff",
+        label: "כפפות דקות, צעיף או באנדנה",
+        subtitle: "בעיקר למקומות הגבוהים",
+      },
+      { id: "walking-shoes", label: "נעלי הליכה נוחות וטובות" },
+      {
+        id: "sandals-slippers",
+        label: "כפכפים",
+        subtitle: "למלון, למקלחת ולבריכה",
+      },
+      {
+        id: "festive-light",
+        label: "בגדים חגיגיים קלים",
+        subtitle: "לערב חגיגי או למסעדות מיוחדות",
+      },
+      { id: "laundry-bag", label: "שקית לכביסה מלוכלכת" },
     ],
   },
 ];
