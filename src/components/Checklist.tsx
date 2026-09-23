@@ -153,6 +153,27 @@ const GROUPS: ChecklistGroup[] = [
       },
     ],
   },
+  {
+    id: "toddlers",
+    title: "לפעוטות",
+    items: [
+      { id: "diapers-wipes", label: "חיתולים ומגבונים לכל התקופה" },
+      { id: "diaper-cream", label: "קרם החתלה" },
+      {
+        id: "baby-carrier",
+        label: "מנשא",
+        subtitle:
+          "בטירות ובטבע יש הרבה מדרגות ועליות לתצפית — עגלה לא תמיד עוברת שם",
+      },
+      { id: "bottles-cups-food", label: "בקבוקים, כוסות ומזון מיוחד" },
+      {
+        id: "toddler-spare-outfit",
+        label: "בגדי החלפה נוספים בתיק היד",
+      },
+      { id: "comfort-item", label: "שמיכייה, מוצץ או צעצוע מרגיע" },
+      { id: "travel-snacks", label: "חטיפים לנסיעות הארוכות" },
+    ],
+  },
 ];
 
 const STORAGE_KEY = "prague-trip-checklist";
