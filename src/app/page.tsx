@@ -44,7 +44,7 @@ export default function Home() {
       <header className="mx-auto w-full max-w-2xl px-4 pt-6 lg:max-w-4xl lg:px-8">
         <div className="flex flex-col items-center gap-3 rounded-2xl border border-zinc-100 bg-white p-6 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <h1 className="text-2xl font-bold text-rose-900 dark:text-rose-300">
-            תוכנית טיול משפחתית לפראג
+            תוכנית טיול לפראג
           </h1>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
             21–26.10.2026 · 6 ימים
