@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-type ChecklistItem = { id: string; label: string };
+type ChecklistItem = { id: string; label: string; subtitle?: string };
 type ChecklistGroup = { id: string; title: string; items: ChecklistItem[] };
 
 const GROUPS: ChecklistGroup[] = [
@@ -10,8 +10,20 @@ const GROUPS: ChecklistGroup[] = [
     id: "documents",
     title: "מסמכים",
     items: [
-      { id: "passports", label: "דרכונים בתוקף לכל המשפחה" },
-      { id: "insurance", label: "ביטוח רפואי בינלאומי" },
+      {
+        id: "passports",
+        label: "דרכונים בתוקף לכל בני המשפחה",
+        subtitle: "לוודא תוקף של לפחות 6 חודשים מיום החזרה",
+      },
+      { id: "travel-insurance", label: "ביטוח נסיעות כולל כיסוי לילדים" },
+      {
+        id: "international-license",
+        label: "רישיון נהיגה בינלאומי",
+        subtitle: "לנהגים בלבד – נדרש בצ'כיה לצד הרישיון הישראלי",
+      },
+      { id: "flight-confirmations", label: "אישורי טיסה שמורים בטלפון" },
+      { id: "hotel-booking-doc", label: "אישור הזמנה – Hotel DUO Prague" },
+      { id: "car-rental-doc", label: "אישור הזמנת רכב שכור" },
     ],
   },
   {
@@ -159,22 +171,29 @@ export default function Checklist() {
                     return (
                       <label
                         key={item.id}
-                        className="flex cursor-pointer items-center gap-3 rounded-lg px-1 py-2 text-sm transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800/60"
+                        className="flex cursor-pointer items-start gap-3 rounded-lg px-1 py-2 text-sm transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800/60"
                       >
                         <input
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => toggleItem(item.id)}
-                          className="h-4 w-4 shrink-0 rounded border-zinc-300 text-rose-900 focus:ring-rose-900 dark:border-zinc-600"
+                          className="mt-0.5 h-4 w-4 shrink-0 rounded border-zinc-300 text-rose-900 focus:ring-rose-900 dark:border-zinc-600"
                         />
-                        <span
-                          className={
-                            isChecked
-                              ? "text-zinc-400 line-through dark:text-zinc-500"
-                              : ""
-                          }
-                        >
-                          {item.label}
+                        <span className="flex flex-col">
+                          <span
+                            className={
+                              isChecked
+                                ? "text-zinc-400 line-through dark:text-zinc-500"
+                                : ""
+                            }
+                          >
+                            {item.label}
+                          </span>
+                          {item.subtitle && (
+                            <span className="text-xs text-zinc-400 dark:text-zinc-500">
+                              {item.subtitle}
+                            </span>
+                          )}
                         </span>
                       </label>
                     );
