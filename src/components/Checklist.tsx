@@ -174,6 +174,19 @@ const GROUPS: ChecklistGroup[] = [
       { id: "travel-snacks", label: "חטיפים לנסיעות הארוכות" },
     ],
   },
+  {
+    id: "gadgets",
+    title: "ציוד וגאדג'טים",
+    items: [
+      { id: "power-adapter", label: "מתאם חשמל אירופאי" },
+      { id: "chargers-cables-powerbank", label: "מטענים, כבלים ופאואר בנק" },
+      { id: "day-backpack", label: "תיק גב קטן ליום טיול" },
+      { id: "reusable-water-bottles", label: "בקבוקי מים רב-פעמיים" },
+      { id: "sunglasses", label: "משקפי שמש לכולם" },
+      { id: "camera-memory-card", label: "מצלמה וכרטיס זיכרון פנוי" },
+      { id: "wet-clothes-bags", label: "שקיות ניילון לבגדים רטובים" },
+    ],
+  },
 ];
 
 const STORAGE_KEY = "prague-trip-checklist";
