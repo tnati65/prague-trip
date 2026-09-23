@@ -3,13 +3,22 @@ import type { IconType } from "@/data/tripData";
 
 // אוסף אייקוני SVG מינימליים, בלי תלות בספרייה חיצונית — עקבי עם "ללא שירותים בתשלום".
 
+const FLIGHT_PATHS = (
+  <>
+    <path d="M21 3 3 10.5l7 2.5 2 7L21 3Z" />
+    <path d="M12 13.5 21 3" />
+  </>
+);
+
+// טיסת המראה (יום 1) משתמשת בכיוון המטוס הרגיל (עולה ימינה-למעלה).
+// טיסת נחיתה (יום 6) היא אותו מטוס, הפוך אנכית — פונה כלפי מטה.
+const FLIGHT_VARIANT_PATHS: Record<"takeoff" | "landing", ReactNode> = {
+  takeoff: FLIGHT_PATHS,
+  landing: <g transform="matrix(1,0,0,-1,0,24)">{FLIGHT_PATHS}</g>,
+};
+
 const ICON_PATHS: Record<IconType, ReactNode> = {
-  flight: (
-    <>
-      <path d="M21 3 3 10.5l7 2.5 2 7L21 3Z" />
-      <path d="M12 13.5 21 3" />
-    </>
-  ),
+  flight: FLIGHT_PATHS,
   car: (
     <>
       <rect x="4" y="10" width="16" height="6" rx="2" />
@@ -63,10 +72,18 @@ export const ACTIVITY_ICON_LABELS: Record<IconType, string> = {
 export default function ActivityIcon({
   type,
   className = "h-5 w-5",
+  flightVariant,
 }: {
   type: IconType;
   className?: string;
+  /** רלוונטי רק כש-type הוא "flight" — קובע האם להציג המראה או נחיתה */
+  flightVariant?: "takeoff" | "landing";
 }) {
+  const paths =
+    type === "flight" && flightVariant
+      ? FLIGHT_VARIANT_PATHS[flightVariant]
+      : ICON_PATHS[type];
+
   return (
     <svg
       viewBox="0 0 24 24"
@@ -78,7 +95,7 @@ export default function ActivityIcon({
       className={className}
       aria-hidden="true"
     >
-      {ICON_PATHS[type]}
+      {paths}
     </svg>
   );
 }

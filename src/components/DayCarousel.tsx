@@ -30,6 +30,13 @@ function getDayIconType(day: DayItinerary): IconType {
   return bestIcon ?? day.activities[0]?.iconType ?? "attraction";
 }
 
+// יום 1 הוא יום ההמראה מהארץ, יום 6 הוא יום הנחיתה בחזרה — האייקון משקף את זה במפורש.
+function getFlightVariant(day: DayItinerary): "takeoff" | "landing" | undefined {
+  if (day.id === 1) return "takeoff";
+  if (day.id === 6) return "landing";
+  return undefined;
+}
+
 // צבע ייעודי וחי לכל סוג אייקון, כדי שהאייקון יבלוט על רקע הכרטיס הלבן.
 const ICON_COLORS: Record<IconType, string> = {
   flight: "text-sky-500",
@@ -88,6 +95,7 @@ export default function DayCarousel({
 
               <ActivityIcon
                 type={iconType}
+                flightVariant={getFlightVariant(day)}
                 className={`h-6 w-6 ${isActive ? "text-white" : ICON_COLORS[iconType]}`}
               />
 
