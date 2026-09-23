@@ -1,2 +1,2 @@
-:HL["/prague-trip/_next/static/chunks/0v3gus9x4q9zr.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"u1dvLYIcYOsOYUEZZKxJ7"}
+:HL["/prague-trip/_next/static/chunks/0nbu3368lf_a8.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"-4fvVR3EK6GbkLRL3m_Rt"}
