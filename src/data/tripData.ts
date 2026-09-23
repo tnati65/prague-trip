@@ -55,6 +55,16 @@ export interface DayImage {
   caption: string;
 }
 
+/** תחזית מזג אוויר לאזור מסוים באותו יום (ליום עם כמה תחנות יכולים להיות כמה אזורים) */
+export interface WeatherForecast {
+  area: string;
+  day: string;
+  date: string;
+  highC: number;
+  lowC: number;
+  rainChancePercent: number;
+}
+
 export interface DayItinerary {
   id: number;
   /** לדוגמה "21.10" */
@@ -68,6 +78,8 @@ export interface DayItinerary {
   mapRoute: MapRoute;
   activities: Activity[];
   infoCards: DayInfoCards;
+  /** תחזית מזג אוויר משוערת (אקלים עונתי ממוצע — לא תחזית מאומתת) */
+  weather: WeatherForecast[];
 }
 
 /** פרטי המלון הקבוע של הטיול — מקור אמת יחיד, כדי שלא יופיע בשם שונה בכל מקום */
@@ -169,6 +181,16 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "יום ההגעה מתוכנן בקצב איטי בכוונה, וגמיש לפי שעת הנחיתה בפועל: הליכה קצרה בלבד ובלי כניסות לאתרים, כדי לתת לילדים (ולהורים) להתאושש מהטיסה.",
     },
+    weather: [
+      {
+        area: "פראג, העיר החדשה",
+        day: "ד'",
+        date: "21.10",
+        highC: 13,
+        lowC: 6,
+        rainChancePercent: 20,
+      },
+    ],
   },
   {
     id: 2,
@@ -251,6 +273,16 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "מתזמנים את ביקור המצודה לשעות הבוקר המוקדמות כדי להימנע מתורים, ומפצלים את הרובע היהודי לשעות אחר הצהריים כשהילדים כבר התחממו להליכה.",
     },
+    weather: [
+      {
+        area: "מצודת פראג",
+        day: "ה'",
+        date: "22.10",
+        highC: 11,
+        lowC: 4,
+        rainChancePercent: 40,
+      },
+    ],
   },
   {
     id: 3,
@@ -332,6 +364,16 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "יום הליכה ברגל לגמרי, בלי צורך ברכב: מתחילים בבוקר בכיכר לפני העומס, וממשיכים בקצב חופשי דרך הגשר ועד לתצפית בגבעת פטרין.",
     },
+    weather: [
+      {
+        area: "העיר העתיקה של פראג",
+        day: "ו'",
+        date: "23.10",
+        highC: 14,
+        lowC: 7,
+        rainChancePercent: 10,
+      },
+    ],
   },
   {
     id: 4,
@@ -418,6 +460,24 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "היום הארוך ביותר בנסיעות בטיול — מתחילים מוקדם, ומחלקים אותו לשלוש תחנות ברורות (קפלת העצמות, ארוחת צהריים, קרלשטיין) כדי לשמור על מרווחי מנוחה לילדים בין נסיעה לנסיעה.",
     },
+    weather: [
+      {
+        area: "קוטנה הורה",
+        day: "ש'",
+        date: "24.10",
+        highC: 10,
+        lowC: 3,
+        rainChancePercent: 50,
+      },
+      {
+        area: "קרלשטיין",
+        day: "ש'",
+        date: "24.10",
+        highC: 9,
+        lowC: 2,
+        rainChancePercent: 55,
+      },
+    ],
   },
   {
     id: 5,
@@ -503,6 +563,24 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "יום שמשלב תרבות (מוזיאון הרכב) וטבע (שמורת הסלעים) בקצב איטי, עם דגש על הליכה קלה ומרווחת ולא על מרחקים ארוכים ברגל.",
     },
+    weather: [
+      {
+        area: "מלאדה בולסלב",
+        day: "א'",
+        date: "25.10",
+        highC: 12,
+        lowC: 5,
+        rainChancePercent: 30,
+      },
+      {
+        area: "גן העדן הבוהמי",
+        day: "א'",
+        date: "25.10",
+        highC: 10,
+        lowC: 4,
+        rainChancePercent: 35,
+      },
+    ],
   },
   {
     id: 6,
@@ -579,5 +657,15 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "יום העזיבה בנוי סביב שוליים גדולים של זמן: צ'ק-אאוט מוקדם, זמן חופשי קצר בלבד לפי שעת הטיסה, והגעה לנמל התעופה לפחות שעתיים לפני הטיסה כדי להימנע מלחץ עם ילדים.",
     },
+    weather: [
+      {
+        area: "פראג ונמל התעופה",
+        day: "ב'",
+        date: "26.10",
+        highC: 13,
+        lowC: 6,
+        rainChancePercent: 15,
+      },
+    ],
   },
 ];

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
-import WhatsAppButton from "@/components/WhatsAppButton";
 import "./globals.css";
 
 const heebo = Heebo({
@@ -24,7 +23,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="he" dir="rtl" className={`${heebo.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
         {children}
-        <WhatsAppButton />
       </body>
     </html>
   );

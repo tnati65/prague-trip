@@ -7,6 +7,10 @@ import DayCarousel from "@/components/DayCarousel";
 import DayGallery from "@/components/DayGallery";
 import Timeline from "@/components/Timeline";
 import InfoCards from "@/components/InfoCards";
+import BottomNav, { type TabId } from "@/components/BottomNav";
+import Checklist from "@/components/Checklist";
+import Trivia from "@/components/Trivia";
+import WeatherWidget from "@/components/WeatherWidget";
 
 // טוען את Leaflet רק בצד הלקוח — הספרייה נשענת על window/document ולא ניתנת ל-SSR.
 const TripMap = dynamic(() => import("@/components/TripMap"), {
@@ -34,8 +38,17 @@ function getCountdownLabel(startDateIso: string): string {
   return `עוד ${diffDays} ימים לטיסה`;
 }
 
+const TAB_TITLES: Record<TabId, string> = {
+  checklist: "צ'קליסט לפני הטיסה",
+  weather: "תחזית מזג אוויר",
+  info: "מידע שימושי ליום",
+  trivia: "טריוויה משפחתית",
+  search: "חיפוש",
+};
+
 export default function Home() {
   const [activeDayId, setActiveDayId] = useState(1);
+  const [activeTab, setActiveTab] = useState<TabId>("checklist");
   const activeDay =
     tripItinerary.find((day) => day.id === activeDayId) ?? tripItinerary[0];
 
@@ -84,11 +97,28 @@ export default function Home() {
           <Timeline activities={activeDay.activities} />
         </section>
 
-        <section className="flex flex-col gap-3 pb-20">
-          <h2 className="text-lg font-semibold">מידע שימושי ליום</h2>
-          <InfoCards cards={activeDay.infoCards} />
+        <section className="flex flex-col gap-3 pb-24">
+          <h2 className="text-lg font-semibold">{TAB_TITLES[activeTab]}</h2>
+
+          {activeTab === "checklist" && <Checklist />}
+          {activeTab === "weather" && (
+            <WeatherWidget forecasts={activeDay.weather} />
+          )}
+          {activeTab === "info" && <InfoCards cards={activeDay.infoCards} />}
+          {activeTab === "trivia" && <Trivia />}
+          {activeTab === "search" && (
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+              חיפוש באתרי הטיול יגיע בקרוב.
+            </p>
+          )}
         </section>
       </main>
+
+      <BottomNav
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        whatsappUrl={tripConfig.whatsappGroupUrl}
+      />
     </div>
   );
 }
