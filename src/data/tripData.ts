@@ -4,6 +4,8 @@
 
 export type IconType =
   | "flight"
+  | "takeoff"
+  | "landing"
   | "car"
   | "hotel"
   | "attraction"

@@ -3,22 +3,29 @@ import type { IconType } from "@/data/tripData";
 
 // אוסף אייקוני SVG מינימליים, בלי תלות בספרייה חיצונית — עקבי עם "ללא שירותים בתשלום".
 
-const FLIGHT_PATHS = (
-  <>
-    <path d="M21 3 3 10.5l7 2.5 2 7L21 3Z" />
-    <path d="M12 13.5 21 3" />
-  </>
-);
-
-// טיסת המראה (יום 1) משתמשת בכיוון המטוס הרגיל (עולה ימינה-למעלה).
-// טיסת נחיתה (יום 6) היא אותו מטוס, הפוך אנכית — פונה כלפי מטה.
-const FLIGHT_VARIANT_PATHS: Record<"takeoff" | "landing", ReactNode> = {
-  takeoff: FLIGHT_PATHS,
-  landing: <g transform="matrix(1,0,0,-1,0,24)">{FLIGHT_PATHS}</g>,
-};
-
 const ICON_PATHS: Record<IconType, ReactNode> = {
-  flight: FLIGHT_PATHS,
+  flight: (
+    <>
+      <path d="M21 3 3 10.5l7 2.5 2 7L21 3Z" />
+      <path d="M12 13.5 21 3" />
+    </>
+  ),
+  // מטוס ממריא — עולה בחדות ימינה-למעלה, מתרחק מקו הקרקע בפינה השמאלית-תחתונה.
+  takeoff: (
+    <>
+      <path d="M3 20h5" />
+      <path d="M21 3 9 12.5l4.5 2 1.5 4.5L21 3Z" />
+      <path d="M14 14.5 21 3" />
+    </>
+  ),
+  // מטוס נוחת — יורד בחדות ימינה-למטה, מתקרב לקו הקרקע בפינה הימנית-תחתונה.
+  landing: (
+    <>
+      <path d="M16 20h5" />
+      <path d="M21 21 9 11.5l4.5-2 1.5-4.5L21 21Z" />
+      <path d="M14 9.5 21 21" />
+    </>
+  ),
   car: (
     <>
       <rect x="4" y="10" width="16" height="6" rx="2" />
@@ -61,6 +68,8 @@ const ICON_PATHS: Record<IconType, ReactNode> = {
 
 export const ACTIVITY_ICON_LABELS: Record<IconType, string> = {
   flight: "טיסה",
+  takeoff: "המראה",
+  landing: "נחיתה",
   car: "נסיעה ברכב",
   hotel: "מלון",
   attraction: "אטרקציה",
@@ -72,18 +81,10 @@ export const ACTIVITY_ICON_LABELS: Record<IconType, string> = {
 export default function ActivityIcon({
   type,
   className = "h-5 w-5",
-  flightVariant,
 }: {
   type: IconType;
   className?: string;
-  /** רלוונטי רק כש-type הוא "flight" — קובע האם להציג המראה או נחיתה */
-  flightVariant?: "takeoff" | "landing";
 }) {
-  const paths =
-    type === "flight" && flightVariant
-      ? FLIGHT_VARIANT_PATHS[flightVariant]
-      : ICON_PATHS[type];
-
   return (
     <svg
       viewBox="0 0 24 24"
@@ -95,7 +96,7 @@ export default function ActivityIcon({
       className={className}
       aria-hidden="true"
     >
-      {paths}
+      {ICON_PATHS[type]}
     </svg>
   );
 }
