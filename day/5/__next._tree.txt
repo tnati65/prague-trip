@@ -1,4 +1,4 @@
 :HL["/prague-trip/_next/static/chunks/0nbu3368lf_a8.css","style"]
 :HL["/prague-trip/_next/static/media/1c9ef42b327f16c7-s.p.0jgv4ivu1938h.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/prague-trip/_next/static/media/86c8c58929c52757-s.p.3dq6enaul-s3b.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"day","param":null,"prefetchHints":4192,"slots":{"children":{"name":"dayId","param":{"type":"d","key":"5","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"4Lo4Df3hq2xOrcWVBWqu8"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"day","param":null,"prefetchHints":4192,"slots":{"children":{"name":"dayId","param":{"type":"d","key":"5","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"PD1V1xx7B_xN6YEzBBOBk"}
