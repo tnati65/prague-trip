@@ -1,13 +1,13 @@
 "use client";
 
-export type TabId = "checklist" | "weather" | "info" | "trivia" | "search";
+export type TabId = "itinerary" | "checklist" | "weather" | "trivia" | "info";
 
 const TABS: { id: TabId; label: string }[] = [
+  { id: "itinerary", label: "מסלול" },
   { id: "checklist", label: "צ'קליסט" },
   { id: "weather", label: "תחזית" },
   { id: "info", label: "מידע" },
   { id: "trivia", label: "טריוויה" },
-  { id: "search", label: "חיפוש" },
 ];
 
 const WHATSAPP_GREEN = "#25D366";
@@ -85,7 +85,7 @@ function TargetIcon({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
-function SearchIcon({ className = "h-5 w-5" }: { className?: string }) {
+function RouteIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -97,8 +97,9 @@ function SearchIcon({ className = "h-5 w-5" }: { className?: string }) {
       className={className}
       aria-hidden="true"
     >
-      <circle cx="10.5" cy="10.5" r="6.5" />
-      <path d="m20 20-4.35-4.35" />
+      <circle cx="5.5" cy="18.5" r="2" />
+      <circle cx="18.5" cy="5.5" r="2" />
+      <path d="M7.2 17.2c4-1 5-4 5-6.7 0-2.5 1.5-4 4.3-4.7" />
     </svg>
   );
 }
@@ -114,6 +115,8 @@ function WhatsAppIcon({ className = "h-4 w-4" }: { className?: string }) {
 
 function TabIcon({ id, className }: { id: TabId; className: string }) {
   switch (id) {
+    case "itinerary":
+      return <RouteIcon className={className} />;
     case "checklist":
       return <CheckboxIcon className={className} />;
     case "weather":
@@ -122,8 +125,6 @@ function TabIcon({ id, className }: { id: TabId; className: string }) {
       return <InfoFileIcon className={className} />;
     case "trivia":
       return <TargetIcon className={className} />;
-    case "search":
-      return <SearchIcon className={className} />;
   }
 }
 
