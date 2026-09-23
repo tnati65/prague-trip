@@ -187,6 +187,28 @@ const GROUPS: ChecklistGroup[] = [
       { id: "wet-clothes-bags", label: "שקיות ניילון לבגדים רטובים" },
     ],
   },
+  {
+    id: "departure-day",
+    title: "ביום היציאה",
+    items: [
+      { id: "flight-online-checkin", label: "צ'ק-אין אונליין לטיסה" },
+      {
+        id: "luggage-weight-check",
+        label: "בדיקת משקל מזוודות",
+        subtitle: "מזוודה אחת לכל נוסע (1 PC)",
+      },
+      { id: "charge-devices", label: "טעינת כל הטלפונים והמצלמות" },
+      {
+        id: "install-as-app",
+        label: "התקנת האתר כאפליקציה למסך הבית",
+        subtitle: "עובד גם בלי אינטרנט",
+      },
+      {
+        id: "currency-no-fee-card",
+        label: "החלפת כסף / כרטיס אשראי ללא עמלת המרה",
+      },
+    ],
+  },
 ];
 
 const STORAGE_KEY = "prague-trip-checklist";
@@ -260,6 +282,23 @@ export default function Checklist() {
       }
       return next;
     });
+  };
+
+  const expandAll = () => {
+    setOpenGroups(new Set(GROUPS.map((g) => g.id)));
+  };
+
+  const collapseAll = () => {
+    setOpenGroups(new Set());
+  };
+
+  const resetChecks = () => {
+    setChecked(new Set());
+    try {
+      sessionStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // אחסון לא זמין — ממשיכים בלי שמירה
+    }
   };
 
   const totalItems = GROUPS.reduce((sum, g) => sum + g.items.length, 0);
@@ -339,6 +378,41 @@ export default function Checklist() {
             </div>
           );
         })}
+      </div>
+
+      <div className="my-4 flex items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={expandAll}
+          className="rounded-full border border-zinc-200 bg-zinc-50 px-4 py-1.5 text-xs font-medium text-zinc-600 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+        >
+          פתח הכל
+        </button>
+        <button
+          type="button"
+          onClick={collapseAll}
+          className="rounded-full border border-zinc-200 bg-zinc-50 px-4 py-1.5 text-xs font-medium text-zinc-600 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+        >
+          סגור הכל
+        </button>
+        <button
+          type="button"
+          onClick={resetChecks}
+          className="rounded-full border border-zinc-200 bg-zinc-50 px-4 py-1.5 text-xs font-medium text-zinc-600 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+        >
+          אפס סימונים
+        </button>
+      </div>
+
+      <div className="rounded-2xl bg-rose-50/60 p-4 dark:bg-rose-900/15">
+        <p className="mb-1 font-bold text-rose-900 dark:text-rose-200">
+          איך זה עובד
+        </p>
+        <p className="text-sm leading-snug text-rose-900/90 dark:text-rose-200/90">
+          הסימונים נשמרים בדפדפן של המכשיר שסימנתם בו, ולא משותפים בין
+          המשפחות — לכל משפחה רשימה משלה. אם תפתחו את האתר בטלפון אחר,
+          הרשימה שם תהיה ריקה.
+        </p>
       </div>
     </div>
   );
