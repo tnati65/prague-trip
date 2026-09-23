@@ -55,16 +55,6 @@ export interface DayImage {
   caption: string;
 }
 
-/** תחזית מזג אוויר לאזור מסוים באותו יום (ליום עם כמה תחנות יכולים להיות כמה אזורים) */
-export interface WeatherForecast {
-  area: string;
-  day: string;
-  date: string;
-  highC: number;
-  lowC: number;
-  rainChancePercent: number;
-}
-
 export interface DayItinerary {
   id: number;
   /** לדוגמה "21.10" */
@@ -78,8 +68,36 @@ export interface DayItinerary {
   mapRoute: MapRoute;
   activities: Activity[];
   infoCards: DayInfoCards;
-  /** תחזית מזג אוויר משוערת (אקלים עונתי ממוצע — לא תחזית מאומתת) */
-  weather: WeatherForecast[];
+}
+
+export type WeatherCondition = "sunny" | "cloudy" | "rainy" | "partly-cloudy";
+
+export interface WeatherCell {
+  tempMax: number;
+  tempMin: number;
+  rainChance: number;
+  condition: WeatherCondition;
+}
+
+/** עמודת תאריך משותפת לכל שורות מטריצת מזג האוויר */
+export interface WeatherMatrixDate {
+  date: string;
+  dayOfWeek: string;
+  /** היעד המתוכנן לאותו יום בטיול, מוצג מתחת לתאריך בכותרת העמודה */
+  destination: string;
+}
+
+export interface WeatherMatrixRow {
+  location: string;
+  /** מידע נוסף על המיקום (גובה, מרחק וכו') */
+  meta?: string;
+  /** תא אחד לכל תאריך ב-weatherMatrix.dates, באותו סדר */
+  cells: WeatherCell[];
+}
+
+export interface WeatherMatrix {
+  dates: WeatherMatrixDate[];
+  rows: WeatherMatrixRow[];
 }
 
 /** פרטי המלון הקבוע של הטיול — מקור אמת יחיד, כדי שלא יופיע בשם שונה בכל מקום */
@@ -181,16 +199,6 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "יום ההגעה מתוכנן בקצב איטי בכוונה, וגמיש לפי שעת הנחיתה בפועל: הליכה קצרה בלבד ובלי כניסות לאתרים, כדי לתת לילדים (ולהורים) להתאושש מהטיסה.",
     },
-    weather: [
-      {
-        area: "פראג, העיר החדשה",
-        day: "ד'",
-        date: "21.10",
-        highC: 13,
-        lowC: 6,
-        rainChancePercent: 20,
-      },
-    ],
   },
   {
     id: 2,
@@ -273,16 +281,6 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "מתזמנים את ביקור המצודה לשעות הבוקר המוקדמות כדי להימנע מתורים, ומפצלים את הרובע היהודי לשעות אחר הצהריים כשהילדים כבר התחממו להליכה.",
     },
-    weather: [
-      {
-        area: "מצודת פראג",
-        day: "ה'",
-        date: "22.10",
-        highC: 11,
-        lowC: 4,
-        rainChancePercent: 40,
-      },
-    ],
   },
   {
     id: 3,
@@ -364,16 +362,6 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "יום הליכה ברגל לגמרי, בלי צורך ברכב: מתחילים בבוקר בכיכר לפני העומס, וממשיכים בקצב חופשי דרך הגשר ועד לתצפית בגבעת פטרין.",
     },
-    weather: [
-      {
-        area: "העיר העתיקה של פראג",
-        day: "ו'",
-        date: "23.10",
-        highC: 14,
-        lowC: 7,
-        rainChancePercent: 10,
-      },
-    ],
   },
   {
     id: 4,
@@ -460,24 +448,6 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "היום הארוך ביותר בנסיעות בטיול — מתחילים מוקדם, ומחלקים אותו לשלוש תחנות ברורות (קפלת העצמות, ארוחת צהריים, קרלשטיין) כדי לשמור על מרווחי מנוחה לילדים בין נסיעה לנסיעה.",
     },
-    weather: [
-      {
-        area: "קוטנה הורה",
-        day: "ש'",
-        date: "24.10",
-        highC: 10,
-        lowC: 3,
-        rainChancePercent: 50,
-      },
-      {
-        area: "קרלשטיין",
-        day: "ש'",
-        date: "24.10",
-        highC: 9,
-        lowC: 2,
-        rainChancePercent: 55,
-      },
-    ],
   },
   {
     id: 5,
@@ -563,24 +533,6 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "יום שמשלב תרבות (מוזיאון הרכב) וטבע (שמורת הסלעים) בקצב איטי, עם דגש על הליכה קלה ומרווחת ולא על מרחקים ארוכים ברגל.",
     },
-    weather: [
-      {
-        area: "מלאדה בולסלב",
-        day: "א'",
-        date: "25.10",
-        highC: 12,
-        lowC: 5,
-        rainChancePercent: 30,
-      },
-      {
-        area: "גן העדן הבוהמי",
-        day: "א'",
-        date: "25.10",
-        highC: 10,
-        lowC: 4,
-        rainChancePercent: 35,
-      },
-    ],
   },
   {
     id: 6,
@@ -657,15 +609,67 @@ export const tripItinerary: DayItinerary[] = [
       familyStrategy:
         "יום העזיבה בנוי סביב שוליים גדולים של זמן: צ'ק-אאוט מוקדם, זמן חופשי קצר בלבד לפי שעת הטיסה, והגעה לנמל התעופה לפחות שעתיים לפני הטיסה כדי להימנע מלחץ עם ילדים.",
     },
-    weather: [
-      {
-        area: "פראג ונמל התעופה",
-        day: "ב'",
-        date: "26.10",
-        highC: 13,
-        lowC: 6,
-        rainChancePercent: 15,
-      },
-    ],
   },
 ];
+
+// מטריצת השוואת מזג אוויר — אקלים עונתי ממוצע לאוקטובר לפי אזור, לא תחזית מאומתת.
+export const weatherMatrix: WeatherMatrix = {
+  dates: [
+    { date: "21.10", dayOfWeek: "ד'", destination: "הגעה ומרכז העיר" },
+    { date: "22.10", dayOfWeek: "ה'", destination: "מצודת פראג" },
+    { date: "23.10", dayOfWeek: "ו'", destination: "עיר עתיקה וגשר קארל" },
+    { date: "24.10", dayOfWeek: "ש'", destination: "קוטנה הורה / קרלשטיין" },
+    { date: "25.10", dayOfWeek: "א'", destination: "מלאדה בולסלב / גן העדן" },
+    { date: "26.10", dayOfWeek: "ב'", destination: "טיסה הביתה" },
+  ],
+  rows: [
+    {
+      location: "העיר העתיקה פראג",
+      meta: "כ-200 מ' מעל פני הים",
+      cells: [
+        { tempMax: 14, tempMin: 7, rainChance: 10, condition: "sunny" },
+        { tempMax: 12, tempMin: 5, rainChance: 30, condition: "partly-cloudy" },
+        { tempMax: 15, tempMin: 8, rainChance: 5, condition: "sunny" },
+        { tempMax: 11, tempMin: 4, rainChance: 45, condition: "cloudy" },
+        { tempMax: 12, tempMin: 5, rainChance: 25, condition: "partly-cloudy" },
+        { tempMax: 14, tempMin: 7, rainChance: 10, condition: "sunny" },
+      ],
+    },
+    {
+      location: "מצודת פראג והסביבה",
+      meta: "כ-270 מ', חשוף לרוח",
+      cells: [
+        { tempMax: 13, tempMin: 6, rainChance: 15, condition: "partly-cloudy" },
+        { tempMax: 11, tempMin: 4, rainChance: 40, condition: "cloudy" },
+        { tempMax: 14, tempMin: 7, rainChance: 10, condition: "sunny" },
+        { tempMax: 10, tempMin: 3, rainChance: 50, condition: "rainy" },
+        { tempMax: 11, tempMin: 4, rainChance: 30, condition: "partly-cloudy" },
+        { tempMax: 13, tempMin: 6, rainChance: 15, condition: "partly-cloudy" },
+      ],
+    },
+    {
+      location: "קוטנה הורה / קרלשטיין",
+      meta: "כ-40–50 ק\"מ מפראג",
+      cells: [
+        { tempMax: 12, tempMin: 5, rainChance: 20, condition: "partly-cloudy" },
+        { tempMax: 10, tempMin: 3, rainChance: 45, condition: "cloudy" },
+        { tempMax: 13, tempMin: 6, rainChance: 15, condition: "partly-cloudy" },
+        { tempMax: 9, tempMin: 2, rainChance: 55, condition: "rainy" },
+        { tempMax: 10, tempMin: 3, rainChance: 35, condition: "cloudy" },
+        { tempMax: 12, tempMin: 5, rainChance: 20, condition: "partly-cloudy" },
+      ],
+    },
+    {
+      location: "גן העדן הבוהמי (Turnov)",
+      meta: "כ-400 מ', אזור יערי",
+      cells: [
+        { tempMax: 10, tempMin: 4, rainChance: 25, condition: "partly-cloudy" },
+        { tempMax: 8, tempMin: 2, rainChance: 50, condition: "rainy" },
+        { tempMax: 11, tempMin: 5, rainChance: 15, condition: "partly-cloudy" },
+        { tempMax: 7, tempMin: 1, rainChance: 65, condition: "rainy" },
+        { tempMax: 8, tempMin: 2, rainChance: 40, condition: "cloudy" },
+        { tempMax: 10, tempMin: 4, rainChance: 25, condition: "partly-cloudy" },
+      ],
+    },
+  ],
+};

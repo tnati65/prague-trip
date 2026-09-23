@@ -103,7 +103,7 @@ export default function Home() {
         {activeTab === "weather" && (
           <div className="flex flex-col gap-4">
             <h2 className="text-lg font-semibold">תחזית מזג אוויר</h2>
-            <WeatherWidget forecasts={activeDay.weather} />
+            <WeatherWidget />
           </div>
         )}
 
