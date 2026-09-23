@@ -72,21 +72,28 @@ export default function Home() {
       </header>
 
       {/* אזור תוכן גוללי יחיד — כל הטאבים מוצגים כאן, מתחת לאזור הקפוא ומעל הניווט התחתון */}
-      <main className="mx-auto w-full max-w-2xl flex-1 overflow-y-auto px-4 pt-[240px] pb-[90px] lg:max-w-4xl">
+      <main className="mx-auto w-full max-w-2xl flex-1 overflow-y-auto px-4 pt-[310px] pb-[100px] md:pt-[320px] lg:max-w-4xl">
         {activeTab === "itinerary" && (
           <div className="flex flex-col gap-3">
-            <div className="flex items-baseline justify-between gap-2">
-              <h2 className="text-lg font-semibold">{activeDay.title}</h2>
-              <span
-                dir="ltr"
-                className="shrink-0 text-sm text-zinc-500 dark:text-zinc-400"
-              >
-                {activeDay.dateString}
-              </span>
+            <div
+              dir="rtl"
+              className="mb-4 w-full rounded-2xl border border-zinc-100 bg-white p-4 text-right shadow-xs dark:border-zinc-800 dark:bg-zinc-900"
+            >
+              <div className="flex items-baseline justify-between gap-2">
+                <h2 className="text-lg font-semibold text-rose-900 dark:text-rose-300">
+                  {activeDay.title}
+                </h2>
+                <span
+                  dir="ltr"
+                  className="shrink-0 text-sm text-zinc-500 dark:text-zinc-400"
+                >
+                  {activeDay.dateString}
+                </span>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                {activeDay.summary}
+              </p>
             </div>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400">
-              {activeDay.summary}
-            </p>
             <DayGallery images={activeDay.images} />
             <TripMap mapRoute={activeDay.mapRoute} />
             <Timeline activities={activeDay.activities} />
