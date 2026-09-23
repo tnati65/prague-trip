@@ -140,7 +140,7 @@ export default function BottomNav({
   return (
     <nav
       dir="rtl"
-      className="fixed bottom-0 left-0 right-0 z-50 mx-auto flex max-w-2xl items-center justify-around border-t border-zinc-100 bg-white px-2 py-2 shadow-lg dark:border-zinc-800 dark:bg-zinc-900 lg:max-w-4xl"
+      className="fixed bottom-0 left-0 right-0 z-40 mx-auto flex max-w-2xl items-center justify-around border-t border-zinc-100 bg-white px-2 py-2 shadow-lg dark:border-zinc-800 dark:bg-zinc-900 lg:max-w-4xl"
     >
       {TABS.map((tab) => {
         const isActive = tab.id === activeTab;

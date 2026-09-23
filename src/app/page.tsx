@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import { tripItinerary, tripConfig } from "@/data/tripData";
 import DayCarousel from "@/components/DayCarousel";
@@ -38,22 +38,6 @@ function getCountdownLabel(startDateIso: string): string {
   return `עוד ${diffDays} ימים לטיסה`;
 }
 
-/** מכולת תצוגה משותפת לטאבים המשניים (צ'קליסט / תחזית / מידע / טריוויה) — מסך נקי ומלא, בלי המסלול. */
-function SecondaryView({
-  heading,
-  children,
-}: {
-  heading: string;
-  children: ReactNode;
-}) {
-  return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-4 px-4 py-6 pb-24 lg:max-w-4xl lg:px-8">
-      <h2 className="text-lg font-semibold">{heading}</h2>
-      {children}
-    </main>
-  );
-}
-
 export default function Home() {
   const [activeDayId, setActiveDayId] = useState(1);
   const [activeTab, setActiveTab] = useState<TabId>("itinerary");
@@ -61,37 +45,36 @@ export default function Home() {
     tripItinerary.find((day) => day.id === activeDayId) ?? tripItinerary[0];
 
   return (
-    <div dir="rtl" className="flex flex-1 flex-col">
-      {activeTab === "itinerary" && (
-        <>
-          <header className="mx-auto w-full max-w-2xl px-4 pt-6 lg:max-w-4xl lg:px-8">
-            <div className="flex flex-col items-center gap-3 rounded-2xl border border-zinc-100 bg-white p-6 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-              <h1 className="text-2xl font-bold text-rose-900 dark:text-rose-300">
-                תוכנית טיול לפראג
-              </h1>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                21-26/10/26 · 6 ימים
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                <span className="inline-flex items-center gap-1 rounded-full bg-amber-400 px-4 py-1.5 text-xs font-semibold text-amber-950 shadow-sm">
-                  {getCountdownLabel(tripConfig.startDate)}
-                </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-zinc-900 px-3 py-1 text-xs font-medium text-white dark:bg-white dark:text-zinc-900">
-                  תקציב משוער:
-                  <span dir="ltr">{formatBudget(tripConfig.totalBudget)}</span>
-                </span>
-              </div>
+    <div dir="rtl" className="flex h-screen flex-col overflow-hidden">
+      {/* אזור עליון קפוא — כותרת ממוסגרת + קרוסלת הימים, נעולים תמיד בראש המסך בכל טאב */}
+      <header className="fixed top-0 left-0 right-0 z-40 mx-auto max-w-2xl border-b border-zinc-100 bg-white shadow-xs dark:border-zinc-800 dark:bg-zinc-900 lg:max-w-4xl">
+        <div className="px-4 pt-6">
+          <div className="flex flex-col items-center gap-3 rounded-2xl border border-zinc-100 bg-white p-6 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <h1 className="text-2xl font-bold text-rose-900 dark:text-rose-300">
+              תוכנית טיול לפראג
+            </h1>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+              21-26/10/26 · 6 ימים
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <span className="inline-flex items-center gap-1 rounded-full bg-amber-400 px-4 py-1.5 text-xs font-semibold text-amber-950 shadow-sm">
+                {getCountdownLabel(tripConfig.startDate)}
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-zinc-900 px-3 py-1 text-xs font-medium text-white dark:bg-white dark:text-zinc-900">
+                תקציב משוער:
+                <span dir="ltr">{formatBudget(tripConfig.totalBudget)}</span>
+              </span>
             </div>
-          </header>
-
-          <div className="mt-4">
-            <DayCarousel
-              activeDayId={activeDayId}
-              onDaySelect={setActiveDayId}
-            />
           </div>
+        </div>
 
-          <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-3 px-4 py-6 pb-24 lg:max-w-4xl lg:px-8">
+        <DayCarousel activeDayId={activeDayId} onDaySelect={setActiveDayId} />
+      </header>
+
+      {/* אזור תוכן גוללי יחיד — כל הטאבים מוצגים כאן, מתחת לאזור הקפוא ומעל הניווט התחתון */}
+      <main className="mx-auto w-full max-w-2xl flex-1 overflow-y-auto px-4 pt-[240px] pb-[90px] lg:max-w-4xl">
+        {activeTab === "itinerary" && (
+          <div className="flex flex-col gap-3">
             <div className="flex items-baseline justify-between gap-2">
               <h2 className="text-lg font-semibold">{activeDay.title}</h2>
               <span
@@ -107,33 +90,37 @@ export default function Home() {
             <DayGallery images={activeDay.images} />
             <TripMap mapRoute={activeDay.mapRoute} />
             <Timeline activities={activeDay.activities} />
-          </main>
-        </>
-      )}
+          </div>
+        )}
 
-      {activeTab === "checklist" && (
-        <SecondaryView heading="צ'קליסט אריזה לטיול">
-          <Checklist />
-        </SecondaryView>
-      )}
+        {activeTab === "checklist" && (
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold">צ&apos;קליסט אריזה לטיול</h2>
+            <Checklist />
+          </div>
+        )}
 
-      {activeTab === "weather" && (
-        <SecondaryView heading="תחזית מזג אוויר">
-          <WeatherWidget forecasts={activeDay.weather} />
-        </SecondaryView>
-      )}
+        {activeTab === "weather" && (
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold">תחזית מזג אוויר</h2>
+            <WeatherWidget forecasts={activeDay.weather} />
+          </div>
+        )}
 
-      {activeTab === "info" && (
-        <SecondaryView heading="מידע שימושי ליום">
-          <InfoCards cards={activeDay.infoCards} />
-        </SecondaryView>
-      )}
+        {activeTab === "info" && (
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold">מידע שימושי ליום</h2>
+            <InfoCards cards={activeDay.infoCards} />
+          </div>
+        )}
 
-      {activeTab === "trivia" && (
-        <SecondaryView heading="טריוויה משפחתית">
-          <Trivia />
-        </SecondaryView>
-      )}
+        {activeTab === "trivia" && (
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold">טריוויה משפחתית</h2>
+            <Trivia />
+          </div>
+        )}
+      </main>
 
       <BottomNav
         activeTab={activeTab}
