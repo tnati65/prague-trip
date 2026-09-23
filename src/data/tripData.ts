@@ -86,7 +86,7 @@ export interface TripConfig {
 }
 
 export const tripConfig: TripConfig = {
-  whatsappGroupUrl: "https://chat.whatsapp.com/PLACEHOLDER_FAMILY_GROUP_LINK",
+  whatsappGroupUrl: "https://chat.whatsapp.com/BEfaUcG19GPDrlMJEqUOKR?s=cl&p=i&mlu=0&ilr=4",
   totalBudget: { amount: 1800, currency: "EUR" },
   startDate: "2026-10-21",
   hotel: {
