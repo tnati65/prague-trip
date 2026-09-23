@@ -47,7 +47,7 @@ export default function Home() {
             תוכנית טיול לפראג
           </h1>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            21–26.10.2026 · 6 ימים
+            21-26/10/26 · 6 ימים
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="inline-flex items-center gap-1 rounded-full bg-amber-400 px-4 py-1.5 text-xs font-semibold text-amber-950 shadow-sm">
