@@ -106,6 +106,53 @@ const GROUPS: ChecklistGroup[] = [
       { id: "laundry-bag", label: "שקית לכביסה מלוכלכת" },
     ],
   },
+  {
+    id: "toiletries",
+    title: "תמרוקים והיגיינה",
+    items: [
+      { id: "toothbrush-toothpaste", label: "מברשות שיניים ומשחה" },
+      { id: "shampoo-conditioner-soap", label: "שמפו, מרכך וסבון גוף" },
+      { id: "deodorant", label: "דאודורנט" },
+      {
+        id: "sunscreen",
+        label: "קרם הגנה",
+        subtitle: "הקרינה בגובה חזקה יותר משנדמה, גם ביום מעונן",
+      },
+      {
+        id: "lip-balm",
+        label: "שפתון לחות",
+        subtitle: "האוויר ההררי מייבש",
+      },
+      { id: "hairbrush-hair-ties", label: "מברשת שיער וגומיות" },
+      { id: "shaving-kit", label: "ציוד גילוח" },
+      { id: "feminine-hygiene", label: "היגיינה נשית" },
+      {
+        id: "wet-wipes-hand-sanitizer",
+        label: "מגבונים לחים וג'ל אלכוהול",
+      },
+      {
+        id: "quick-dry-towel",
+        label: "מגבת מהירת ייבוש",
+        subtitle: "למרחצאות ולאגמים",
+      },
+      {
+        id: "personal-medications",
+        label: "תרופות אישיות ומרשמים",
+        subtitle: "בכמות מספקת לכל הטיול",
+      },
+      {
+        id: "first-aid-kit",
+        label: "ערכת עזרה ראשונה ופלסטרים",
+        subtitle: "גם לשלפוחיות מהליכה",
+      },
+      {
+        id: "kids-medications",
+        label: "תרופות ילדים",
+        subtitle:
+          "מורידי חום ותרופה נגד בחילה – הכבישים ההרריים מפותלים",
+      },
+    ],
+  },
 ];
 
 const STORAGE_KEY = "prague-trip-checklist";
