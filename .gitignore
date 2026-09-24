@@ -17,6 +17,14 @@
 /.next/
 /out/
 
+# PWA — נוצרים מחדש בכל build על ידי @ducanh2912/next-pwa, אין לשמור בגיט
+/public/sw.js
+/public/sw.js.map
+/public/swe-worker-*.js
+/public/swe-worker-*.js.map
+/public/workbox-*.js
+/public/workbox-*.js.map
+
 # production
 /build
 
